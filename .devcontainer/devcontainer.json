@@ -1,0 +1,27 @@
+{
+  "name": "C++ CMake (Debian Slim)",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cmake-tools",
+        "ms-vscode.cpptools",
+        "ms-vscode.cpptools-extension-pack",
+        "twxs.cmake",
+        "mitaki28.vscode-clang"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "cmake.configureOnOpen": true,
+        "cmake.generator": "Ninja",
+        "C_Cpp.default.compilerPath": "/usr/bin/g++",
+        "C_Cpp.codeFormatting.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4 }"
+      }
+    }
+  },
+  "postCreateCommand": "cmake --version && g++ --version",
+  "remoteUser": "vscode"
+}
