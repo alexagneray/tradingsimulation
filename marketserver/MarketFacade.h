@@ -1,3 +1,5 @@
+#pragma once
+
 #include <memory>
 #include <vector>
 #include <string>
@@ -5,6 +7,7 @@
 class Market;
 struct Order;
 struct Asset;
+class Orderer;
 
 class MarketFacade
 {
@@ -24,5 +27,6 @@ public:
     void AddAsset(Asset&& asset);
     void RemoveAsset(const std::string& code);
     void GetAssetList(std::vector<std::pair<int, std::string>>& vecAssets) const;
-    void Attach(std::shared_ptr<>);
+    void Attach(std::shared_ptr<Orderer> orderer);
+    void Detach(std::shared_ptr<Orderer> orderer);
 };

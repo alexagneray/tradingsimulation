@@ -55,3 +55,13 @@ void MarketFacade::GetAssetList(std::vector<std::pair<int, std::string>> &vecAss
 {
     m_pMarket->GetAssetList(vecAssets);
 }
+
+void MarketFacade::Attach(std::shared_ptr<Orderer> orderer)
+{
+    m_pMarket->GetOrderBook().Attach(orderer);
+}
+
+void MarketFacade::Detach(std::shared_ptr<Orderer> orderer)
+{
+    m_pMarket->GetOrderBook().Detach(orderer);
+}

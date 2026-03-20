@@ -1,3 +1,5 @@
+#pragma once
+
 #include "MarketFacade.h"
 #include "order/Order.h"
 #include <vector>
