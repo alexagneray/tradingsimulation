@@ -1,8 +1,6 @@
 #include "Asset.h"
 
-class Stock : public Asset
+struct Stock : public Asset
 {
-    protected:
-        int volume;
-    public:
+    int volume;
 };

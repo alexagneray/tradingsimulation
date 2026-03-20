@@ -1,9 +1,8 @@
 #include <string>
-class Asset 
+struct Asset 
 {
-    protected:
-        int id;
-        std::string code;
-        double price;
-    public:
+    int id;
+    std::string code;
+    double price;
+    int quantity;
 };
