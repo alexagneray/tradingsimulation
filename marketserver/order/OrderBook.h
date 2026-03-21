@@ -30,7 +30,7 @@ class OrderBook
         std::set < Order > m_setBidOrders;
         std::set < Order > m_setAskOrders;
         std::set<OrderHistoryEntry> m_setOrderHistory;
-        std::mutex orderBookMutex;
+        std::mutex m_mutOrderBook;
         std::list<std::shared_ptr<Orderer>> m_lstOrderers;
     public:
         void AddBidOrder(Order&& order);

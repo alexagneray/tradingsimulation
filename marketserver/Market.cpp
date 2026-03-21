@@ -11,9 +11,9 @@ Market::Market():
 
 void Market::WakeUp()
 {
-    marketThread = std::thread([this]() {
+    m_thdMarket = std::thread([this]() {
         while (true) {
-            orderBook.ExecuteOrders();
+            m_orderBook.ExecuteOrders();
 
             #ifdef VERBOSE_MODE
                 std::this_thread::sleep_for(std::chrono::milliseconds(1000)); 
@@ -36,9 +36,9 @@ void Market::WakeUp()
 
 void Market::Sleep()
 {
-    if (marketThread.joinable()) {
+    if (m_thdMarket.joinable()) {
         m_bMustSleep = true;
-        marketThread.join();
+        m_thdMarket.join();
     }
     #ifdef VERBOSE_MODE
         std::cout << "The market is now sleeping !" << std::endl;
@@ -46,12 +46,12 @@ void Market::Sleep()
 }
 OrderBook &Market::GetOrderBook()
 {
-    return orderBook;   
+    return m_orderBook;   
 }
 
 void Market::GetAssetList(std::vector<std::pair<int, std::string>>& vecAssets) const
 {
-    for(const auto& asset: assets)
+    for(const auto& asset: m_mapAssets)
     {
         vecAssets.push_back(std::make_pair(asset.second.id, asset.first));
     }
@@ -63,13 +63,13 @@ void Market::AddAsset(Asset&& asset)
     #ifdef VERBOSE_MODE
         std::cout << "Ajout de l'actif " << asset.code << std::endl;
     #endif
-    assets.emplace(asset.code,std::move(asset));
+    m_mapAssets.emplace(asset.code,std::move(asset));
 }
 
 
 void Market::RemoveAsset(const std::string& code)
 {
-    std::size_t count = assets.erase(code);
+    std::size_t count = m_mapAssets.erase(code);
 
     #ifdef VERBOSE_MODE
         if(count)

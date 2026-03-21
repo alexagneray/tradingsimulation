@@ -7,7 +7,7 @@
 
 void OrderBook::AddBidOrder(Order &&order)
 {
-    std::lock_guard<std::mutex> lock(orderBookMutex);
+    std::lock_guard<std::mutex> lock(m_mutOrderBook);
 
             #ifdef VERBOSE_MODE
                     std::cout << "Adding bid order: " << order.id << " for asset "
@@ -20,7 +20,7 @@ void OrderBook::AddBidOrder(Order &&order)
 
 void OrderBook::AddAskOrder(Order &&order)
 {
-    std::lock_guard<std::mutex> lock(orderBookMutex);
+    std::lock_guard<std::mutex> lock(m_mutOrderBook);
             #ifdef VERBOSE_MODE
                     std::cout << "Adding ask order: " << order.id << " for asset "
                                 << order.assetId << " with volume " << order.volume
@@ -31,7 +31,7 @@ void OrderBook::AddAskOrder(Order &&order)
 
 void OrderBook::RemoveBidOrder(int orderId)
 {
-    std::lock_guard<std::mutex> lock(orderBookMutex);
+    std::lock_guard<std::mutex> lock(m_mutOrderBook);
 
     auto it = std::find_if(m_setBidOrders.begin(), m_setBidOrders.end(), [orderId](const Order& o) {
         return o.id == orderId;
@@ -46,7 +46,7 @@ void OrderBook::RemoveBidOrder(int orderId)
 
 void OrderBook::RemoveAskOrder(int orderId)
 {
-    std::lock_guard<std::mutex> lock(orderBookMutex);
+    std::lock_guard<std::mutex> lock(m_mutOrderBook);
 
     auto it = std::find_if(m_setAskOrders.begin(), m_setAskOrders.end(), [orderId](const Order& o) {
         return o.id == orderId;
@@ -67,7 +67,7 @@ void OrderBook::ExecuteOrders()
             #endif
         return; // No orders to execute
     }
-    std::lock_guard<std::mutex> lock(orderBookMutex);
+    std::lock_guard<std::mutex> lock(m_mutOrderBook);
     auto itBid = m_setBidOrders.begin();
     auto itAsk = m_setAskOrders.begin();
     

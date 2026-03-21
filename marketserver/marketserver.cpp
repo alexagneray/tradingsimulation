@@ -10,7 +10,8 @@
 int main()
 {
     MarketFacade marketFacade;
-    Orderer orderer(marketFacade);
+    std::shared_ptr<Orderer> pOrderer = std::make_shared<Orderer>(marketFacade);
+    marketFacade.Attach(pOrderer);
     
 
     marketFacade.WakeUp();

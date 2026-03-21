@@ -16,10 +16,10 @@ struct OrderEntry
 class Orderer
 {
     private:
-    const MarketFacade& m_marketFacade;
+    MarketFacade& m_marketFacade;
     std::vector<OrderEntry> m_vecOrderEntries;
 
     public:
-    Orderer(const MarketFacade& market);
+    Orderer(MarketFacade& market);
     void Update(const Order& order, bool executed, time_t executionTime);
 };

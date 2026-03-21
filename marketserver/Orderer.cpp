@@ -1,8 +1,9 @@
 #include "Orderer.h"
 
 #include <algorithm>
+#include <memory>
 
-Orderer::Orderer(const MarketFacade &market):
+Orderer::Orderer(MarketFacade &market):
     m_marketFacade(market)
 {
 }

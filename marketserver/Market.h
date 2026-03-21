@@ -13,12 +13,12 @@
 class Market 
 {
     private:
-    std::map<std::string, Asset> assets;
-    std::thread marketThread;
+    std::map<std::string, Asset> m_mapAssets;
+    std::thread m_thdMarket;
 
     bool m_bMustSleep;
 
-    OrderBook orderBook;
+    OrderBook m_orderBook;
 
     public:
     Market();
